@@ -79,6 +79,8 @@ class Batman.Model extends Batman.Object
   @classAccessor 'resourceName',
     get: ->
       if @resourceName?
+        if Batman.helpers.pluralize(@resourceName) == @resourceName
+          Batman.developer.warn("'#{@resourceName}' should be a singular and underscored version of the Model's class name e.g. #{Batman.helpers.underscore(Batman.functionName(@))}")
         @resourceName
       else if @::resourceName?
         Batman.developer.error("Please define the resourceName property of the #{Batman.functionName(@)} on the constructor and not the prototype. (For example, `@resourceName: '#{Batman.helpers.underscore(Batman.functionName(@))}'`)") if Batman.config.minificationErrors
